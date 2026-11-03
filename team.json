@@ -1,0 +1,13 @@
+{
+  "team_number": "T0045",
+  "group_lead": { "name": "Shaurya Negi", "enrollment_no": "2501010422", "github": "Maxx2016s" },
+  "members": [
+    { "name": "Arpan Kaur", "enrollment_no": "2501010082", "github": "Arpan-Kaur2006" },
+    { "name": "Manya Juneja", "enrollment_no": "2501010691", "github": "manya-15-juneja" },
+    { "name": "Vibhu Kakkar", "enrollment_no": "2501010505", "github": "vibhukakkar" }
+  ],
+  "postgres_version": "v18",
+  "laptop_used_for_benchmarks": "Apple M4 Macbook Pro"
+}
+
+
