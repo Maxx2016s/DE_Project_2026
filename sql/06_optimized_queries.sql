@@ -1,4 +1,4 @@
-```— =====================================================================
+— =====================================================================
 -- Instagram DBMS Project: optimized workload
 -- File: sql/06_optimized_queries.sql
 -- R01–R24: reads | W01–W06: writes
@@ -328,4 +328,4 @@ SET status = 'ACCEPTED'
 WHERE followee_id = 338 AND status = 'PENDING';
 
 -- @END
-ROLLBACK;```
+ROLLBACK;
