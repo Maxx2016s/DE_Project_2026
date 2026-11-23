@@ -1,0 +1,144 @@
+=== R12 run 1 ===
+Limit  (cost=25101.77..25101.80 rows=10 width=15) (actual time=10.585..11.339 rows=10.00 loops=1)
+  Buffers: shared hit=46087 read=198 written=9
+  ->  Sort  (cost=25101.77..25101.90 rows=50 width=15) (actual time=10.584..11.338 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=46087 read=198 written=9
+        ->  Finalize GroupAggregate  (cost=25090.08..25100.69 rows=50 width=15) (actual time=10.556..11.329 rows=50.00 loops=1)
+              Group Key: h.tag
+              Buffers: shared hit=46084 read=198 written=9
+              ->  Gather Merge  (cost=25090.08..25099.77 rows=85 width=15) (actual time=10.553..11.320 rows=100.00 loops=1)
+                    Workers Planned: 1
+                    Workers Launched: 1
+                    Buffers: shared hit=46084 read=198 written=9
+                    ->  Sort  (cost=24090.07..24090.19 rows=50 width=15) (actual time=9.468..9.470 rows=50.00 loops=2)
+                          Sort Key: h.tag
+                          Sort Method: quicksort  Memory: 26kB
+                          Buffers: shared hit=46084 read=198 written=9
+                          Worker 0:  Sort Method: quicksort  Memory: 26kB
+                          ->  Partial HashAggregate  (cost=24088.16..24088.66 rows=50 width=15) (actual time=9.406..9.409 rows=50.00 loops=2)
+                                Group Key: h.tag
+                                Batches: 1  Memory Usage: 32kB
+                                Buffers: shared hit=46076 read=198 written=9
+                                Worker 0:  Batches: 1  Memory Usage: 32kB
+                                ->  Hash Join  (cost=2.98..23976.22 rows=22387 width=7) (actual time=0.081..7.715 rows=19230.00 loops=2)
+                                      Hash Cond: (ph.hashtag_id = h.hashtag_id)
+                                      Buffers: shared hit=46076 read=198 written=9
+                                      ->  Nested Loop  (cost=0.86..23910.35 rows=22387 width=4) (actual time=0.051..6.232 rows=19230.00 loops=2)
+                                            Buffers: shared hit=46054 read=198 written=9
+                                            ->  Parallel Index Only Scan using idx_posts_created on posts p  (cost=0.43..580.15 rows=8955 width=4) (actual time=0.026..0.544 rows=7692.00 loops=2)
+                                                  Index Cond: (created_at >= '2026-06-24 00:00:00+05:30'::timestamp with time zone)
+                                                  Heap Fetches: 0
+                                                  Index Searches: 1
+                                                  Buffers: shared hit=5 read=92 written=3
+                                            ->  Index Only Scan using post_hashtags_pkey on post_hashtags ph  (cost=0.43..2.58 rows=3 width=8) (actual time=0.001..0.001 rows=2.50 loops=15384)
+                                                  Index Cond: (post_id = p.post_id)
+                                                  Heap Fetches: 0
+                                                  Index Searches: 15384
+                                                  Buffers: shared hit=46049 read=106 written=6
+                                      ->  Hash  (cost=1.50..1.50 rows=50 width=11) (actual time=0.026..0.026 rows=50.00 loops=2)
+                                            Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                                            Buffers: shared hit=22
+                                            ->  Seq Scan on hashtags h  (cost=0.00..1.50 rows=50 width=11) (actual time=0.020..0.021 rows=50.00 loops=2)
+                                                  Buffers: shared hit=22
+Planning:
+  Buffers: shared hit=421 read=22
+Planning Time: 0.763 ms
+Execution Time: 11.377 ms
+=== R12 run 2 ===
+Limit  (cost=25101.77..25101.80 rows=10 width=15) (actual time=9.863..10.448 rows=10.00 loops=1)
+  Buffers: shared hit=46285
+  ->  Sort  (cost=25101.77..25101.90 rows=50 width=15) (actual time=9.863..10.447 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=46285
+        ->  Finalize GroupAggregate  (cost=25090.08..25100.69 rows=50 width=15) (actual time=9.834..10.437 rows=50.00 loops=1)
+              Group Key: h.tag
+              Buffers: shared hit=46282
+              ->  Gather Merge  (cost=25090.08..25099.77 rows=85 width=15) (actual time=9.831..10.428 rows=100.00 loops=1)
+                    Workers Planned: 1
+                    Workers Launched: 1
+                    Buffers: shared hit=46282
+                    ->  Sort  (cost=24090.07..24090.19 rows=50 width=15) (actual time=8.868..8.869 rows=50.00 loops=2)
+                          Sort Key: h.tag
+                          Sort Method: quicksort  Memory: 26kB
+                          Buffers: shared hit=46282
+                          Worker 0:  Sort Method: quicksort  Memory: 26kB
+                          ->  Partial HashAggregate  (cost=24088.16..24088.66 rows=50 width=15) (actual time=8.808..8.810 rows=50.00 loops=2)
+                                Group Key: h.tag
+                                Batches: 1  Memory Usage: 32kB
+                                Buffers: shared hit=46274
+                                Worker 0:  Batches: 1  Memory Usage: 32kB
+                                ->  Hash Join  (cost=2.98..23976.22 rows=22387 width=7) (actual time=0.051..7.205 rows=19230.00 loops=2)
+                                      Hash Cond: (ph.hashtag_id = h.hashtag_id)
+                                      Buffers: shared hit=46274
+                                      ->  Nested Loop  (cost=0.86..23910.35 rows=22387 width=4) (actual time=0.025..5.777 rows=19230.00 loops=2)
+                                            Buffers: shared hit=46252
+                                            ->  Parallel Index Only Scan using idx_posts_created on posts p  (cost=0.43..580.15 rows=8955 width=4) (actual time=0.012..0.335 rows=7692.00 loops=2)
+                                                  Index Cond: (created_at >= '2026-06-24 00:00:00+05:30'::timestamp with time zone)
+                                                  Heap Fetches: 0
+                                                  Index Searches: 1
+                                                  Buffers: shared hit=97
+                                            ->  Index Only Scan using post_hashtags_pkey on post_hashtags ph  (cost=0.43..2.58 rows=3 width=8) (actual time=0.000..0.001 rows=2.50 loops=15384)
+                                                  Index Cond: (post_id = p.post_id)
+                                                  Heap Fetches: 0
+                                                  Index Searches: 15384
+                                                  Buffers: shared hit=46155
+                                      ->  Hash  (cost=1.50..1.50 rows=50 width=11) (actual time=0.023..0.023 rows=50.00 loops=2)
+                                            Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                                            Buffers: shared hit=22
+                                            ->  Seq Scan on hashtags h  (cost=0.00..1.50 rows=50 width=11) (actual time=0.016..0.018 rows=50.00 loops=2)
+                                                  Buffers: shared hit=22
+Planning:
+  Buffers: shared hit=443
+Planning Time: 0.676 ms
+Execution Time: 10.487 ms
+=== R12 run 3 ===
+Limit  (cost=25101.77..25101.80 rows=10 width=15) (actual time=9.584..10.255 rows=10.00 loops=1)
+  Buffers: shared hit=46285
+  ->  Sort  (cost=25101.77..25101.90 rows=50 width=15) (actual time=9.583..10.254 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=46285
+        ->  Finalize GroupAggregate  (cost=25090.08..25100.69 rows=50 width=15) (actual time=9.545..10.245 rows=50.00 loops=1)
+              Group Key: h.tag
+              Buffers: shared hit=46282
+              ->  Gather Merge  (cost=25090.08..25099.77 rows=85 width=15) (actual time=9.542..10.235 rows=100.00 loops=1)
+                    Workers Planned: 1
+                    Workers Launched: 1
+                    Buffers: shared hit=46282
+                    ->  Sort  (cost=24090.07..24090.19 rows=50 width=15) (actual time=8.646..8.647 rows=50.00 loops=2)
+                          Sort Key: h.tag
+                          Sort Method: quicksort  Memory: 26kB
+                          Buffers: shared hit=46282
+                          Worker 0:  Sort Method: quicksort  Memory: 26kB
+                          ->  Partial HashAggregate  (cost=24088.16..24088.66 rows=50 width=15) (actual time=8.583..8.586 rows=50.00 loops=2)
+                                Group Key: h.tag
+                                Batches: 1  Memory Usage: 32kB
+                                Buffers: shared hit=46274
+                                Worker 0:  Batches: 1  Memory Usage: 32kB
+                                ->  Hash Join  (cost=2.98..23976.22 rows=22387 width=7) (actual time=0.054..7.130 rows=19230.00 loops=2)
+                                      Hash Cond: (ph.hashtag_id = h.hashtag_id)
+                                      Buffers: shared hit=46274
+                                      ->  Nested Loop  (cost=0.86..23910.35 rows=22387 width=4) (actual time=0.027..5.729 rows=19230.00 loops=2)
+                                            Buffers: shared hit=46252
+                                            ->  Parallel Index Only Scan using idx_posts_created on posts p  (cost=0.43..580.15 rows=8955 width=4) (actual time=0.012..0.325 rows=7692.00 loops=2)
+                                                  Index Cond: (created_at >= '2026-06-24 00:00:00+05:30'::timestamp with time zone)
+                                                  Heap Fetches: 0
+                                                  Index Searches: 1
+                                                  Buffers: shared hit=97
+                                            ->  Index Only Scan using post_hashtags_pkey on post_hashtags ph  (cost=0.43..2.58 rows=3 width=8) (actual time=0.000..0.001 rows=2.50 loops=15384)
+                                                  Index Cond: (post_id = p.post_id)
+                                                  Heap Fetches: 0
+                                                  Index Searches: 15384
+                                                  Buffers: shared hit=46155
+                                      ->  Hash  (cost=1.50..1.50 rows=50 width=11) (actual time=0.023..0.023 rows=50.00 loops=2)
+                                            Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                                            Buffers: shared hit=22
+                                            ->  Seq Scan on hashtags h  (cost=0.00..1.50 rows=50 width=11) (actual time=0.016..0.018 rows=50.00 loops=2)
+                                                  Buffers: shared hit=22
+Planning:
+  Buffers: shared hit=443
+Planning Time: 0.692 ms
+Execution Time: 10.300 ms

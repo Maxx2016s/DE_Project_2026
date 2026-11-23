@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,43.299,5.820,4.941,119.137,Index Scan using follows_pkey on follows | Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_active_user_created
+R02,READ,0.185,0.122,0.104,0.328,Index Only Scan using idx_posts_active_user_created on posts
+R03,READ,0.293,0.100,0.059,0.721,Index Scan using users_username_key on users
+R04,READ,0.528,0.257,0.142,1.184,Index Scan using idx_comments_post_created on comments | Index Scan using idx_comments_parent on comments
+R05,READ,24.005,13.274,11.265,47.477,Index Only Scan using idx_posts_created on posts | Index Only Scan using post_hashtags_pkey on post_hashtags | Seq Scan on hashtags
+R06,READ,47.974,20.359,20.048,103.515,Bitmap Heap Scan on users | Bitmap Index Scan on idx_users_username_trgm | Bitmap Index Scan on idx_users_full_name_trgm
+R07,READ,0.565,0.096,0.080,1.518,Index Only Scan using idx_likes_post_created on likes | Index Scan using follows_pkey on follows | Index Scan using users_pkey on users
+R08,READ,0.808,0.133,0.110,2.182,Index Scan using follows_pkey on follows | Index Only Scan using follows_pkey on follows
+R09,READ,2.878,0.552,0.276,7.806,Index Only Scan using idx_follows_pending_followee_created on follows | Index Scan using users_pkey on users
+R10,READ,2.673,0.328,0.293,7.397,Index Scan using follows_pkey on follows | Index Scan using idx_stories_user_created on stories
+R11,READ,67.395,32.819,32.560,136.807,Seq Scan on users | Index Scan using idx_posts_user_created on posts
+R12,READ,10.721,10.487,10.300,11.377,Index Only Scan using idx_posts_created on posts | Index Only Scan using post_hashtags_pkey on post_hashtags | Seq Scan on hashtags
+R13,READ,0.038,0.038,0.031,0.044,Index Scan using idx_comments_post_created on comments | Index Only Scan using idx_comments_parent on comments
+R14,READ,0.247,0.107,0.078,0.557,Index Only Scan using idx_follows_accepted_followee on follows | Index Only Scan using follows_pkey on follows
+R15,READ,141.986,94.295,92.727,238.936,Seq Scan on users | Index Only Scan using idx_follows_accepted_followee on follows
+R16,READ,7.708,7.346,7.289,8.488,Index Scan using idx_posts_created on posts
+R17,READ,64.625,29.535,19.654,144.686,Index Only Scan using idx_posts_reel_created on posts | Index Scan using users_pkey on users | Index Scan using post_media_pkey on post_media
+R18,READ,15.719,15.637,15.458,16.061,Index Only Scan using idx_posts_created on posts
+R19,READ,398.182,163.927,159.251,871.368,Seq Scan on users | Seq Scan on posts | Index Only Scan using idx_likes_post_created on likes
+R20,READ,51.858,49.237,48.710,57.628,Index Only Scan using idx_posts_created on posts | Index Only Scan using idx_comments_post_created on comments
+R21,READ,0.485,0.447,0.437,0.571,Index Only Scan using idx_follows_accepted_followee on follows | Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_user_created | Index Only Scan using idx_likes_post_created on likes
+R22,READ,50.392,1.224,1.215,148.736,Index Scan using idx_comments_hidden_created on comments
+R23,READ,0.122,0.033,0.033,0.301,Index Only Scan using likes_pkey on likes
+R24,READ,33.814,21.873,21.076,58.492,Seq Scan on stories
+W01,WRITE,1.540,1.140,1.056,2.423,(no scan)
+W02,WRITE,0.974,1.077,0.708,1.136,(no scan)
+W03,WRITE,2.418,1.731,1.490,4.033,Index Scan using posts_pkey on posts
+W04,WRITE,1952.848,1660.174,1529.990,2668.380,Index Only Scan using users_pkey on users | Index Only Scan using idx_follows_accepted_followee on follows | Index Scan using users_pkey on users
+W05,WRITE,755.624,583.047,554.852,1128.973,Seq Scan on stories
+W06,WRITE,10.007,0.975,0.542,28.504,Index Scan using idx_follows_pending_followee_created on follows

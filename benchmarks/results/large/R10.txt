@@ -1,0 +1,60 @@
+=== R10 run 1 ===
+Sort  (cost=129.65..129.69 rows=13 width=26) (actual time=7.347..7.353 rows=66.00 loops=1)
+  Sort Key: s.created_at DESC
+  Sort Method: quicksort  Memory: 28kB
+  Buffers: shared hit=24 read=71
+  ->  Nested Loop  (cost=0.86..129.41 rows=13 width=26) (actual time=0.158..7.289 rows=66.00 loops=1)
+        Buffers: shared hit=21 read=71
+        ->  Index Scan using follows_pkey on follows f  (cost=0.43..27.92 rows=12 width=4) (actual time=0.018..0.028 rows=8.00 loops=1)
+              Index Cond: (follower_id = 1042)
+              Filter: ((status)::text = 'ACCEPTED'::text)
+              Index Searches: 1
+              Buffers: shared hit=5
+        ->  Index Scan using idx_stories_user_created on stories s  (cost=0.42..8.45 rows=1 width=26) (actual time=0.167..0.904 rows=8.25 loops=8)
+              Index Cond: ((user_id = f.followee_id) AND (created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+              Index Searches: 8
+              Buffers: shared hit=16 read=71
+Planning:
+  Buffers: shared hit=295 read=8
+Planning Time: 2.570 ms
+Execution Time: 7.397 ms
+=== R10 run 2 ===
+Sort  (cost=129.65..129.69 rows=13 width=26) (actual time=0.254..0.258 rows=66.00 loops=1)
+  Sort Key: s.created_at DESC
+  Sort Method: quicksort  Memory: 28kB
+  Buffers: shared hit=95
+  ->  Nested Loop  (cost=0.86..129.41 rows=13 width=26) (actual time=0.030..0.221 rows=66.00 loops=1)
+        Buffers: shared hit=92
+        ->  Index Scan using follows_pkey on follows f  (cost=0.43..27.92 rows=12 width=4) (actual time=0.017..0.022 rows=8.00 loops=1)
+              Index Cond: (follower_id = 1042)
+              Filter: ((status)::text = 'ACCEPTED'::text)
+              Index Searches: 1
+              Buffers: shared hit=5
+        ->  Index Scan using idx_stories_user_created on stories s  (cost=0.42..8.45 rows=1 width=26) (actual time=0.007..0.023 rows=8.25 loops=8)
+              Index Cond: ((user_id = f.followee_id) AND (created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+              Index Searches: 8
+              Buffers: shared hit=87
+Planning:
+  Buffers: shared hit=303
+Planning Time: 1.827 ms
+Execution Time: 0.293 ms
+=== R10 run 3 ===
+Sort  (cost=129.65..129.69 rows=13 width=26) (actual time=0.282..0.287 rows=66.00 loops=1)
+  Sort Key: s.created_at DESC
+  Sort Method: quicksort  Memory: 28kB
+  Buffers: shared hit=95
+  ->  Nested Loop  (cost=0.86..129.41 rows=13 width=26) (actual time=0.033..0.242 rows=66.00 loops=1)
+        Buffers: shared hit=92
+        ->  Index Scan using follows_pkey on follows f  (cost=0.43..27.92 rows=12 width=4) (actual time=0.017..0.023 rows=8.00 loops=1)
+              Index Cond: (follower_id = 1042)
+              Filter: ((status)::text = 'ACCEPTED'::text)
+              Index Searches: 1
+              Buffers: shared hit=5
+        ->  Index Scan using idx_stories_user_created on stories s  (cost=0.42..8.45 rows=1 width=26) (actual time=0.008..0.025 rows=8.25 loops=8)
+              Index Cond: ((user_id = f.followee_id) AND (created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+              Index Searches: 8
+              Buffers: shared hit=87
+Planning:
+  Buffers: shared hit=303
+Planning Time: 1.471 ms
+Execution Time: 0.328 ms
